@@ -1,7 +1,52 @@
 FROM php:fpm
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN docker-php-ext-install opcache
+RUN docker-php-ext-install pdo
+RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install calendar
+RUN docker-php-ext-install ctype
+RUN docker-php-ext-install exif
+RUN docker-php-ext-install ffi
+RUN docker-php-ext-install fileinfo
+RUN docker-php-ext-install ftp
+RUN docker-php-ext-install gettext
+RUN docker-php-ext-install iconv
+RUN docker-php-ext-install intl
+RUN docker-php-ext-install mbstring
+RUN docker-php-ext-install phar
+RUN docker-php-ext-install posix
+RUN docker-php-ext-install readline
+RUN docker-php-ext-install shmop
+RUN docker-php-ext-install sockets
+RUN docker-php-ext-install sysvmsg
+RUN docker-php-ext-install sysvsem
+RUN docker-php-ext-install sysvshm
+RUN docker-php-ext-install tokenizer
+RUN docker-php-ext-install xml
+RUN docker-php-ext-install curl
+
+RUN docker-php-ext-enable opcache
+RUN docker-php-ext-enable pdo
 RUN docker-php-ext-enable mysqli
-
-
-
-
+RUN docker-php-ext-enable pdo_mysql
+RUN docker-php-ext-enable calendar
+RUN docker-php-ext-enable ctype
+RUN docker-php-ext-enable exif
+RUN docker-php-ext-enable ffi
+RUN docker-php-ext-enable fileinfo
+RUN docker-php-ext-enable ftp
+RUN docker-php-ext-enable gettext
+RUN docker-php-ext-enable iconv
+RUN docker-php-ext-enable intl
+RUN docker-php-ext-enable mbstring
+RUN docker-php-ext-enable phar
+RUN docker-php-ext-enable posix
+RUN docker-php-ext-enable readline
+RUN docker-php-ext-enable shmop
+RUN docker-php-ext-enable sockets
+RUN docker-php-ext-enable sysvmsg
+RUN docker-php-ext-enable sysvsem
+RUN docker-php-ext-enable sysvshm
+RUN docker-php-ext-enable tokenizer
+RUN docker-php-ext-enable xml
+RUN docker-php-ext-enable curl
