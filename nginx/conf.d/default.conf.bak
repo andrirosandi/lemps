@@ -1,0 +1,108 @@
+server {  
+
+	listen 80 default_server;
+ 
+    server_name: app.sahabatjayasukses.com;
+	root /var/www/html;  
+	index index.html index.php;  
+
+	charset utf-8;  
+  
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+  
+  	location ~ /.well-known {
+		auth_basic off;
+		allow all;
+	}
+  
+  	location / {
+        return 301 https://$host$request_uri;
+    }  
+
+	location / {  
+		try_files $uri $uri/ /index.php?$query_string;  
+	}  
+
+	location = /favicon.ico { access_log off; log_not_found off; }  
+	location = /robots.txt { access_log off; log_not_found off; }  
+
+	access_log off;  
+	error_log /var/log/nginx/error.log error;  
+
+	sendfile off;  
+
+	client_max_body_size 100m;  
+
+	
+
+	location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|woff2|eot|mp4|ogg|ogv|webm|webp|zip|swf|map)$ {
+		add_header Access-Control-Allow-Origin "*";
+		expires max;
+		access_log off;
+	}
+
+	location ~ .php$ {  
+		fastcgi_split_path_info ^(.+.php)(/.+)$;  
+		fastcgi_pass php:9000;  
+		fastcgi_index index.php;  
+		include fastcgi_params;
+		fastcgi_read_timeout 300;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  
+		fastcgi_intercept_errors off;  
+		fastcgi_buffer_size 16k;  
+		fastcgi_buffers 4 16k;  
+	}  
+
+	location ~ /.ht {  
+		deny all;  
+	}  
+}
+
+/*
+server {
+  
+  	listen 443 ssl;
+    server_name app.sahabatjayasukses.com;
+    
+    access_log off;  
+	error_log /var/log/nginx/error.log error;  
+
+	sendfile off;  
+
+	client_max_body_size 100m;  
+
+	location ~ /.well-known {
+		auth_basic off;
+		allow all;
+	}
+
+	location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|woff2|eot|mp4|ogg|ogv|webm|webp|zip|swf|map)$ {
+		add_header Access-Control-Allow-Origin "*";
+		expires max;
+		access_log off;
+	}
+
+	location ~ .php$ {  
+		fastcgi_split_path_info ^(.+.php)(/.+)$;  
+		fastcgi_pass php:9000;  
+		fastcgi_index index.php;  
+		include fastcgi_params;
+		fastcgi_read_timeout 300;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  
+		fastcgi_intercept_errors off;  
+		fastcgi_buffer_size 16k;  
+		fastcgi_buffers 4 16k;  
+	}  
+
+	location ~ /.ht {  
+		deny all;  
+	}  
+  
+  	#ssl_certificate /etc/letsencrypt/live/app.sahabatjayasukses.com/fullchain.pem;
+	#ssl_certificate_key /etc/letsencrypt/live/app.sahabatjayasukses.com/privkey.pem;
+  	#include /etc/letsencrypt/options-ssl-nginx.conf;
+	#ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
+*/
